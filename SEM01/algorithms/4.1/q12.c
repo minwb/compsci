@@ -9,5 +9,14 @@ correspondente em graus Celsius (baseado na fórmula abaixo):
 
 int main (){
 
+    int GrausF, GrausC;
+
+    printf("Temperatura em Fahrenheit: ");
+    scanf("%d", &GrausF);
+
+    GrausC = ((GrausF - 32)*5) / 9;
+
+    printf("Temperatura equivalente em Celsius: %d", GrausC);
+
     return 0;
 }
