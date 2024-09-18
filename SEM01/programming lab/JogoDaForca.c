@@ -4,14 +4,13 @@
 #include <time.h>
 
 char* banco_palavras[] = {   
-    "computador", "livro", "mesa", "garrafinha", "chave", "carro", "sapato", "mochila", "grampeador", "fogao",
-    "brigadeiro", "bolacha", "limonada", "lasanha", "agua", "pao", "refrigerante", "carne", "macarronada", "pizza",
-    "coelho", "gato", "cachorro", "raposa", "leao", "aguia", "hamster", "corvo", "elefante", "pinguim",
-    "preto", "verde", "vermelho", "azul", "rosa", "roxo", "marrom", "amarelo", "cinza", "branco",
-    "brasil", "japao", "canada", "noruega", "australia", "turquia", "tailandia", "dinamarca", "polonia", "suecia"
+    "computador", "livro", "mesa", "garrafinha", "chave", "carro", "sapato", "mochila", "grampeador", "fogao",  // objetos
+    "brigadeiro", "bolacha", "limonada", "lasanha", "agua", "pao", "refrigerante", "carne", "macarronada", "pizza", // comida e bebida
+    "coelho", "gato", "cachorro", "raposa", "leao", "aguia", "hamster", "corvo", "elefante", "pinguim",  // animais
+    "preto", "verde", "vermelho", "azul", "rosa", "roxo", "marrom", "amarelo", "cinza", "branco",  // cores
+    "brasil", "japao", "canada", "noruega", "australia", "turquia", "tailandia", "dinamarca", "polonia", "suecia" // paises
 };
 
-// Exibe o menu do jogo
 void menuJg(){
     printf("     _  ___   ____  ___    ____    _      _____ ___  ____   ____    _  \n");
     printf("    | |/ _ \\ / ___|/ _ \\  |  _ \\  / \\    |  ___/ _ \\|  _ \\ / ___|  / \\  \n");
@@ -20,8 +19,8 @@ void menuJg(){
     printf(" \\___/ \\___/ \\____|\\___/  |____/_/   \\_\\ |_|   \\___/|_| \\_\\\\____/_/   \\_\\\n");
 }
 
-// Função para desenhar o boneco da forca com espaçamento reduzido
-void bonecoForca(int tentv){
+
+void boneco(int tentv){
     switch (tentv){
     case 0:
         printf("|----\n|   |\n|\n|\n|\n-\n");
@@ -47,63 +46,57 @@ void bonecoForca(int tentv){
     }
 }
 
-// Função para sortear uma palavra do banco de palavras
-void sorteioPalavras(char palavra_cpy[]){
-    strcpy(palavra_cpy, banco_palavras[rand() % 50]);  // Sorteia uma palavra do array de 50 palavras
+void sorteioPalavras(char palavra_cpy[]){ // função para sortear uma palavra do banco de palavras
+    strcpy(palavra_cpy, banco_palavras[rand() % 50]); 
 }
 
 int main() {
-    srand(time(NULL));  // Gera a semente para o sorteio com base no tempo atual
+    srand(time(NULL));  // gera a semente para o sorteio com base no tempo atual
 
-    char palavra_cpy[100];         // Armazena a palavra sorteada
-    char palavraEscondida[100];    // Armazena a versão escondida da palavra (com '_')
-    char adivinha;                 // Armazena a letra adivinhada pelo jogador
-    int tamPalavra, tentv = 0, foundCorrect = 0, found;  // tentv = tentativas, foundCorrect = acertos
+    char palavra_cpy[100];         
+    char palavraEscondida[100];    
+    char adivinha;                 
+    int tamPalavra, tentv = 0, foundCorrect = 0, found;
 
-    menuJg();  // Exibe o título do jogo
+    menuJg();  // função que imprime o título do jogo
 
-    // Sorteio da palavra
     sorteioPalavras(palavra_cpy);
-    tamPalavra = strlen(palavra_cpy);  // Obtém o tamanho da palavra sorteada
+    tamPalavra = strlen(palavra_cpy);  // sorteia uma palavra e obtém o seu tamanho
 
-    // Inicializa a palavra escondida com '_'
     for (int i = 0; i < tamPalavra; i++){
         palavraEscondida[i] = '_';
     }
-    palavraEscondida[tamPalavra] = '\0';  // Adiciona o caractere de fim de string
+    palavraEscondida[tamPalavra] = '\0';  // adiciona o caractere de fim de string
 
-    // Loop principal do jogo (enquanto o jogador não esgotar as tentativas ou acertar a palavra)
-    while (tentv < 6 && foundCorrect < tamPalavra) {
+    while (tentv < 6 && foundCorrect < tamPalavra) {  // verificação de tentativa do usuário
         printf("\nPalavra: %s\n", palavraEscondida);
         printf("Digite uma letra: ");
-        scanf(" %c", &adivinha);  // Lê a letra adivinhada (com espaço antes de %c para evitar problemas com '\n')
+        scanf(" %c", &adivinha); 
 
-        found = 0;  // Reinicia a variável found a cada tentativa
+        found = 0;  // reinicia a cada tentativa
 
-        // Verifica se a letra está presente na palavra sorteada
-        for (int i = 0; i < tamPalavra; i++){
+        for (int i = 0; i < tamPalavra; i++){  // verificação se a letra está presente na palavra
             if (palavra_cpy[i] == adivinha && palavraEscondida[i] != adivinha) {
-                palavraEscondida[i] = adivinha;  // Revela a letra na posição correta
+                palavraEscondida[i] = adivinha;  // revelação da letra na posição correta
                 found = 1;
-                foundCorrect++;  // Incrementa o número de acertos
+                foundCorrect++;  // incrementa o número de acertos
             }
         }
 
-        if (!found) {
-            tentv++;  // Se a letra não foi encontrada, incrementa as tentativas
-            bonecoForca(tentv);  // Desenha o boneco da forca
+        if (!found) {  // a cada tentativa errada imprime o boneco com uma parte a mais
+            tentv++; 
+            boneco(tentv); 
             printf("Errado! %d tentativas restantes\n", 6 - tentv);
         } else {
-            printf("Voce acertou uma letra!\n");
-            printf("Quantidade de acertos: %d\n", foundCorrect);  // Mostra a quantidade de acertos
+            printf("Voce acertou uma letra\n");
+            printf("Quantidade de acertos: %d\n", foundCorrect);
         }
     }
 
-    // Verifica se o jogador venceu ou perdeu
-    if (foundCorrect == tamPalavra) {
+    if (foundCorrect == tamPalavra) { // verificação se o jogador ganhou ou perdeu
         printf("\nParabens! Voce acertou a palavra: %s\n", palavra_cpy);
     } else {
-        printf("\nVoce perdeu! A palavra era: %s\n", palavra_cpy);
+        printf("\nVoce perdeu. A palavra era: %s\n", palavra_cpy);
     }
 
     return 0;
