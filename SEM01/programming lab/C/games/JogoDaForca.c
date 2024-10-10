@@ -99,7 +99,7 @@ int main() {
 
             if (acertos > 0) {  //  
                 foundCorrect += acertos;  // acumulação de acertos durante a rodada
-                printf("Voce acertou %d letra(s)!\n", acertos);
+                printf("Voce acertou %d letras\n", acertos);
             } else {
                 tentv++;
                 boneco(tentv); // função que desenha o boneco
