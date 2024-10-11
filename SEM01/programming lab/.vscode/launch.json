@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/yasmi/OneDrive/Documentos/GitHub/compsci/SEM01/programming lab",
-      "program": "c:/Users/yasmi/OneDrive/Documentos/GitHub/compsci/SEM01/programming lab/build/Debug/outDebug",
+      "cwd": ".",
+      "program": "build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
