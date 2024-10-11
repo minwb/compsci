@@ -86,3 +86,27 @@ int main(){
 
     } while(op != 0); // Repita até qe o usuário digite zero, ou seja, que ele deseje sair
 }
+
+/*  --> ADICIONAL 
+
+Nesse programa o arquivo foi salvo como .txt.. mas e se fosse em binário?
+
+void SaveFile(){
+    FILE *arq = fopen("list2.txt", "wb");
+    if(arq){
+        fprintf(arq, "%d\n", quant);
+        fwrite(lista, sizeof(Pessoa), quant, arq)
+        parâmetros: fwrite(quem queremos escrever nesse arquivo? (vetor inteiro), qual o tamanho de cada Pessoa?,
+        quantas Pessoas eu quero escrever?, em qual arquivo eu quero escrever?);
+        fclose(arq);
+
+    FILE *arq = fopen("list2.txt", "rb");
+    if(arq){
+        fread(&quant, sizeof(int), quant, arq);  // lê quant diretamente em modo binário
+        fread(lista, sizeof(Pessoa), quant, arq)
+        parâmetros: fwrite(onde vou armazenar?, qual o tamanho de cada Pessoa?,
+        quantas Pessoas eu quero escrever?, em qual arquivo eu quero escrever?);
+        fclose(arq);
+    }
+}
+*/
