@@ -86,7 +86,7 @@ int RegistroLivros() {
 
 void ImprimeLivros() {
     for (int i = 0; i < quant; i++) {
-        printf("LIVRO %d", i + 1);
+        printf("\t\tLIVRO %d", i + 1);
         printf("\n\tLivro: %s", lista[i].titulo);
         printf("\n\tAutor: %s", lista[i].autor.nome);
         printf("\n\tData de nascimento do autor: %02d/%02d/%04d", lista[i].autor.nasci.dia, lista[i].autor.nasci.mes, lista[i].autor.nasci.ano);

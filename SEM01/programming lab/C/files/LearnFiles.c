@@ -98,13 +98,13 @@ void SaveFile(){  // Função para salvar os dados em arquivo
 
 int main(){
 
-    int op;     // Variável op = opção escolhida
+    int opt;     // Variável op = opção escolhida
     
     do {        // Repetição faça-enquanto para controle de menu
-        printf("\n1 - Cadastrar\n2 - Imprimir\n0 - Sair\n"); // Imprime as opções
-        scanf("%d", &op);
+        printf("\n1 - Cadastrar Usuario\n2 - Imprimir Usuario\n0 - Sair\n"); // Imprime as opções
+        scanf("%d", &opt);
 
-        switch(op){  // Avalia o valor recebido por op
+        switch(opt){  // Avalia o valor recebido por op
         case 0:     // Usuário quer sair do programa
             printf("Tchau!");
             break;
@@ -119,11 +119,7 @@ int main(){
         }
        
 
-<<<<<<< HEAD
-    } while(op != 0); // Repita até que o usuário digite zero, ou seja, que ele deseje sair
-=======
-    } while(op != 0); // Repita até qe o usuário digite zero, ou seja, que ele deseje sair
->>>>>>> b49c60558bda552145d4f3e9ffe3b997a96929fe
+    } while(opt != 0); // Repita até que o usuário digite zero, ou seja, que ele deseje sair
 }
 
 /*  --> ADICIONAL 
@@ -145,11 +141,7 @@ void SaveFile(){
         fread(lista, sizeof(Pessoa), quant, arq)
         parâmetros: fwrite(onde vou armazenar?, qual o tamanho de cada Pessoa?,
         quantas Pessoas eu quero escrever?, em qual arquivo eu quero escrever?);
-        fclose(arq);
+        fclose(arq); //
     }
-<<<<<<< HEAD
-} */
-=======
 }
 */
->>>>>>> b49c60558bda552145d4f3e9ffe3b997a96929fe
