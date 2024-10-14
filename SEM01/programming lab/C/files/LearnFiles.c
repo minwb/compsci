@@ -119,7 +119,11 @@ int main(){
         }
        
 
+<<<<<<< HEAD
     } while(op != 0); // Repita até que o usuário digite zero, ou seja, que ele deseje sair
+=======
+    } while(op != 0); // Repita até qe o usuário digite zero, ou seja, que ele deseje sair
+>>>>>>> b49c60558bda552145d4f3e9ffe3b997a96929fe
 }
 
 /*  --> ADICIONAL 
@@ -143,4 +147,9 @@ void SaveFile(){
         quantas Pessoas eu quero escrever?, em qual arquivo eu quero escrever?);
         fclose(arq);
     }
+<<<<<<< HEAD
 } */
+=======
+}
+*/
+>>>>>>> b49c60558bda552145d4f3e9ffe3b997a96929fe
