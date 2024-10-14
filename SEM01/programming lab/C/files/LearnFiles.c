@@ -11,9 +11,9 @@ formato, e assim ser possível abrir o arquivo e ler as informações inseridas.
 Primeiro, vamos criar um tipo de dado chamado Pessoa.   */
 
 typedef struct{
-    char nome[50];  
-    int idade;      
-    char sexo;     
+    char name[50];  
+    int age;      
+    char sex;     
 } Pessoa;
 
 Pessoa lista[TAM]; // Vetor global do tipo Pessoa, do tamanho TAM (10). 
@@ -31,11 +31,11 @@ int RegistPeople(){   // Função que registra cada pessoa
          do teclado ANTES. */
          scanf("%*c");      // Limpa o buffer
          printf("\nDigite seu nome: ");   
-         fgets(p.nome, 50, stdin);   // Leitura do nome
+         fgets(p.name, 50, stdin);   // Leitura do nome
          printf("Digite a idade: ");
-         scanf("%d", &p.idade);      // Leitura da idade
+         scanf("%d", &p.age);      // Leitura da idade
          printf("Digite o sexo: ");
-         scanf(" %c", &p.sexo);       // Leitura do sexo
+         scanf(" %c", &p.sex);       // Leitura do sexo (espacinho antes do % para não ler o enter)
          // Até esse ponto fizemos apenas a leitura dos dados, é preciso salvar na nossa lista de Pessoas
          lista[quant] = p; // quant representa o índice do vetor e a quantidade de pessoas cadastradas
          quant++; // 0 + 1.. + 2 .. (até ser menor que TAM)
@@ -54,12 +54,47 @@ void PrintPeople(){  // Função que mostra para o usuário as pessoas cadastrad
     o código ficará errado. Ele tem que percorrer o total de pessoas no vetor, que é
     definido pela variável quant (recebeu determinado incremento na função de registro) */
     for (i=0; i < quant; i++){
-        printf("\n\t\tNome: %s", lista[i].nome);
-        printf("\t\tIdade: %d\n", lista[i].idade);
-        printf("\t\tSexo: %c\n", lista[i].sexo);
+        printf("\n\t\tNome: %s", lista[i].name);
+        printf("\t\tIdade: %d\n", lista[i].age);
+        printf("\t\tSexo: %c\n", lista[i].sex);
     }
 }
 
+void SaveFile(){  // Função para salvar os dados em arquivo
+    // Ponteiro arch do tipo FILE
+    FILE *arq = fopen("list.txt", "w"); // Ponteiro arch apontando para um arquivo
+    /* Função fopen abre um arquivo e seus parâmetros são: 
+    fopen("nome do arquivo.formato", "o que quero fazer com esse arquivo?"); 
+    No momento de determinar o que se deseja fazer com esse arquivo existe muitas opções pra 
+    diferentes formatos como .txt ou .bin 
+    
+    TXT: 
+    - "r" Abre um arquivo texto para leitura. O arquivo deve existir antes de ser aberto.
+    - "w" Abrir um arquivo texto para gravação. Se o arquivo não existir, ele será criado. Se já existir, o conteúdo anterior será destruído. 
+    - "a" Abrir um arquivo texto para gravação. Os dados serão adicionados no fim do arquivo ("append"), se ele já existir, ou um novo
+     arquivo será criado, no caso de arquivo não existente anteriormente
+     
+     BIN:
+     - "rb" Abre um arquivo binário para leitura. Igual ao modo "r" anterior, só que o arquivo é binário.
+     - "wb" Cria um arquivo binário para escrita, como no modo "w" anterior, só que o arquivo é binário.
+     - "ab" Acrescenta dados binários no fim do arquivo, como no modo "a" anterior, só que o arquivo é binário.
+     */
+
+    // Verificação se o arquivo pode ser aberto (sempre precisa ser verificado)
+    if(arq){ // se não for possível, arq vai possuir o valor NULL (nulo)
+        for (int i = 0; i < quant; i++){
+            fprintf(arq, "%s", lista[i].name); // Função de printar arquivos similar ao printf
+            // Única diferença é dizer antes do %, pra qual FILE * você deseja imprimir, ou seja, qual arquivo
+            fprintf(arq, "%d", lista[i].age);
+            fprintf(arq, "%c", lista[i].sex);
+        }
+        fclose(arq); 
+        /* Quando o fopen usado, automaticamente se torna necessário a utilização do fclose,
+        pois sem ele ao final das gravações dos dados no arquivo, o arquivo pode ficar corrompido */ 
+    } else {
+        printf("ERRO: Nao foi possivel abrir o arquivo. \n\n");
+    }
+}
 
 int main(){
 
@@ -84,5 +119,28 @@ int main(){
         }
        
 
-    } while(op != 0); // Repita até qe o usuário digite zero, ou seja, que ele deseje sair
+    } while(op != 0); // Repita até que o usuário digite zero, ou seja, que ele deseje sair
 }
+
+/*  --> ADICIONAL 
+
+Nesse programa o arquivo foi salvo como .txt.. mas e se fosse em binário?
+
+void SaveFile(){
+    FILE *arq = fopen("list2.txt", "wb");
+    if(arq){
+        fprintf(arq, "%d\n", quant);
+        fwrite(lista, sizeof(Pessoa), quant, arq)
+        parâmetros: fwrite(quem queremos escrever nesse arquivo? (vetor inteiro), qual o tamanho de cada Pessoa?,
+        quantas Pessoas eu quero escrever?, em qual arquivo eu quero escrever?);
+        fclose(arq);
+
+    FILE *arq = fopen("list2.txt", "rb");
+    if(arq){
+        fread(&quant, sizeof(int), quant, arq);  // lê quant diretamente em modo binário
+        fread(lista, sizeof(Pessoa), quant, arq)
+        parâmetros: fwrite(onde vou armazenar?, qual o tamanho de cada Pessoa?,
+        quantas Pessoas eu quero escrever?, em qual arquivo eu quero escrever?);
+        fclose(arq);
+    }
+} */
